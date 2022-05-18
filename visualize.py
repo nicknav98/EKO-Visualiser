@@ -40,15 +40,16 @@ try:
     # START
     # initializes graph, adds subplots to support multiple y lines
     # ax acts as twins of one another, to copy the x axis from eachother, and plot
+    x_axis = df1['Wavelength(nm)'].to_numpy(dtype='float')
+    x_axisArray = x_axis.flatten()
+    x_axis_rounded = [round(x) for x in x_axisArray]
     fig = plt.figure()
-    ax0 = fig.add_subplot(111)
-    ax1 = ax0.twinx()
-    ax2 = ax1.twinx()
-    ax3 = ax2.twinx()
-    ax0.plot(df['Irradiance(W/m2/um)'], 'c')
-    ax1.plot(df1['Irradiance(W/m2/um)'], 'r')
-    ax2.plot(df2['Irradiance(W/m2/um)'])
-    ax3.plot(df3['Irradiance(W/m2/um)'], 'y')
+    plt.xticks(x_axis_rounded)
+    plt.axes().set_xticklabels(x_axis_rounded)
+    plt.plot(df['Irradiance(W/m2/um)'], 'c')
+    plt.plot(df1['Irradiance(W/m2/um)'], 'r')
+    plt.plot(df2['Irradiance(W/m2/um)']), 'g'
+    plt.plot(df3['Irradiance(W/m2/um)'], 'y')
     # END
 
     # Graph labels
@@ -56,8 +57,8 @@ try:
     plt.xlabel("Wavelength(nm)")
     plt.show()
 
-except(Exception, psycopg2.Error) as Error:
-    print("Error while connecting: ", Error)
+#except(Exception, psycopg2.Error) as Error:
+    #print("Error while connecting: ", Error)
 
 finally:
     if connection:
