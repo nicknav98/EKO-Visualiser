@@ -40,7 +40,7 @@ try:
 
     # ax = df.plot(x='Wavelength(nm)', y='Irradiance(W/m2/um)', legend=False)
     # df1.plot(ax=ax, y='Irradiance(W/m2/um)', legend=False)
-    print("Test")
+    
     plt.ylabel("Irradiance(W/m2/um)")
     plt.xlabel("Wavelength(nm)")
     plt.show()
