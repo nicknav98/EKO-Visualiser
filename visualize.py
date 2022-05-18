@@ -3,7 +3,7 @@
 # Author: Nicholas Navarro
 # First Revision: 17.5.22
 
-# Config
+# Config for connectiing to database
 HOST = "192.168.0.122"
 PORT = "5432"
 
@@ -19,34 +19,45 @@ try:
                                   host=HOST,
                                   port=PORT,
                                   database="RadianceDB")
-    # cursor = connection.cursor()
+    # sql query to gather data, executes query and parses the timestamp column as datetime
     sql_select_Query = "select * from radiance"
-
-    # cursor.execute(sql_select_Query)
-    print("Successfully extracted data from DB\n")
     SQL_Query = pd.read_sql_query(sql_select_Query, connection, parse_dates=['Timestamp'])
-    df = pd.DataFrame(SQL_Query, columns=['Wavelength(nm)', 'Timestamp', 'Irradiance(W/m2/um)'])
-    df1 = df[df['Timestamp'] != df.iloc[0, 1]]
+    print("Successfully extracted data from DB\n")
 
+    # converts sql data to pandas dataframe for plotting
+    df = pd.DataFrame(SQL_Query, columns=['Wavelength(nm)', 'Timestamp', 'Irradiance(W/m2/um)'])
+    # START - splits table based on datetime, comparison is done with previous
+    # split to get dataframe chunks with same time stamp
+    df1 = df[df['Timestamp'] != df.iloc[0, 1]]
+    df2 = df1[df1['Timestamp'] != df1.iloc[0, 1]]
+    df3 = df2[df2['Timestamp'] != df2.iloc[0, 1]]
+    # END of splitting
+
+    # Parameters for graph layout
     plt.rcParams["figure.figsize"] = [7.00, 3.50]
     plt.rcParams["figure.autolayout"] = True
-    # x_values = df1['Wavelength(nm)'].to_numpy(dtype='float')
 
+    # START
+    # initializes graph, adds subplots to support multiple y lines
+    # ax acts as twins of one another, to copy the x axis from eachother, and plot
     fig = plt.figure()
-    ax1 = fig.add_subplot(111)
+    ax0 = fig.add_subplot(111)
+    ax1 = ax0.twinx()
     ax2 = ax1.twinx()
-    ax1.plot(df['Irradiance(W/m2/um)'])
-    ax2.plot(df1['Irradiance(W/m2/um)'])
+    ax3 = ax2.twinx()
+    ax0.plot(df['Irradiance(W/m2/um)'], 'c')
+    ax1.plot(df1['Irradiance(W/m2/um)'], 'r')
+    ax2.plot(df2['Irradiance(W/m2/um)'])
+    ax3.plot(df3['Irradiance(W/m2/um)'], 'y')
+    # END
 
-    # ax = df.plot(x='Wavelength(nm)', y='Irradiance(W/m2/um)', legend=False)
-    # df1.plot(ax=ax, y='Irradiance(W/m2/um)', legend=False)
-    
+    # Graph labels
     plt.ylabel("Irradiance(W/m2/um)")
     plt.xlabel("Wavelength(nm)")
     plt.show()
 
-# except(Exception, psycopg2.Error) as Error:
-#    print("Error while connecting: ", Error)
+except(Exception, psycopg2.Error) as Error:
+    print("Error while connecting: ", Error)
 
 finally:
     if connection:
