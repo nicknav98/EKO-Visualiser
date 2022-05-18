@@ -23,13 +23,11 @@ topObj = df.iloc[:6]
 topObjNew = topObj.iloc[:2]
 # transposes the data to column format, if you need to export it
 topObjTransposed = topObjNew.T
-#topObjTransposed = topObjTransposed.drop(topObjTransposed.iloc[2:], axis=1)
+
 
 # Time recording section, isolates date and time, and transposes it horizontally
 dateTime = topObjTransposed
 
-
-#dateTimeTransposed = dateTime.T
 dateTime.columns = dateTime.iloc[0]
 dateTime.drop(index=dateTime.index[0], axis=0, inplace=True)
 isolatedDateTime = dateTime.iloc[1]
@@ -77,28 +75,18 @@ hourData['Irradiance(W/m2/um)'] = hourData['Irradiance(W/m2/um)'].astype('float'
 # resets the index again so that the first data point is 0 on index
 hourData = hourData.reset_index(drop=True)
 
-# one testing function to remove redundant readings. Development needed
-# Message to confirm data has been cleaned
-# print("Cleaned Data, ignoring radiance reading that are less than 200:\n")
-
 # inserts NaT fields to the converted datetime variables
 hourData.insert(1, 'Timestamp', 'x')
 hourData['Timestamp'] = merged
 hourData.replace({pd.NaT: str(merged)}, inplace=True)
 
-# ------------------------------
-# Legacy Code
-# hourData.loc[-1] = [dateTimeTransposed]
-# hourData.index = hourData.index+1
-# hourData.sort_index(inplace=True)
-
-
-
+# -------------------------------
+# Takes only first 3 columns
 finalData = hourData[hourData.columns[0:3]]
 
 print(finalData)
-# sends data to csv, for testing and development purposes
-finalData.to_csv(r'./output.csv', index=False)
+# sends data to csv, for testing purposes - uncomment to run, will need 'output.csv' file in the same directory
+# finalData.to_csv(r'./output.csv', index=False)
 
 # sends data to sql using sql alchemy engine, and replaces the data on database.
 finalData.to_sql('radiance', engine, if_exists='append', index=False)
