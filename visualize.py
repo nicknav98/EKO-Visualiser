@@ -12,7 +12,6 @@ PORT = "5432"
 import psycopg2
 import pandas as pd
 import numpy as np
-import matplotlib
 from matplotlib import pyplot as plt
 
 try:
@@ -26,20 +25,27 @@ try:
 
     # cursor.execute(sql_select_Query)
     print("Successfully extracted data from DB\n")
-    SQL_Query = pd.read_sql_query(sql_select_Query,connection)
-    df = pd.DataFrame(SQL_Query, columns=['Wavelength(nm)', 'Timestamp', 'Irradiance(W/m2/um)'])
-
+    SQL_Query = pd.read_sql_query(sql_select_Query, connection, parse_dates=['Timestamp'])
+    df = pd.DataFrame(SQL_Query, columns=['Wavelength(nm)', 'Timestamp', 'Irradiance(W/m2/um)'], )
+    df1 = df[df['Timestamp'] != df.iloc[0, 1]]
 
     plt.rcParams["figure.figsize"] = [7.00, 3.50]
     plt.rcParams["figure.autolayout"] = True
 
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    ax2 = ax1.twinx
 
-    df.plot(x='Wavelength(nm)', y='Irradiance(W/m2/um)')
+    df.plot(ax=ax1, y='Irradiance(W/m2/um)', legend=False)
+    df1.plot(ax=ax1, y='Irradiance(W/m2/um)', legend=False)
 
+
+
+    plt.ylabel("Irradiance(W/m2/um)")
     plt.show()
 
-except(Exception, psycopg2.Error) as Error:
-    print("Error while connecting: ", Error)
+#except(Exception, psycopg2.Error) as Error:
+#    print("Error while connecting: ", Error)
 
 finally:
     if connection:

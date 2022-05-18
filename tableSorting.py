@@ -12,7 +12,7 @@ import numpy as np
 # IP address is raspi. ip on network.
 engine = create_engine('postgresql+psycopg2://postgres:aurinko88@192.168.0.122:5432/RadianceDB')
 # file location of the CSV exported by EOX
-fileLocation = './testData/2022051314.CSV'
+fileLocation = './testData/2022051313.CSV'
 # If you want to record the cleaned data to a CSV, use panda to parse to desired output CSV File
 outputFile = './output.csv'
 
@@ -101,4 +101,4 @@ print(finalData)
 finalData.to_csv(r'./output.csv', index=False)
 
 # sends data to sql using sql alchemy engine, and replaces the data on database.
-finalData.to_sql('radiance', engine, if_exists='replace', index=False)
+finalData.to_sql('radiance', engine, if_exists='append', index=False)
