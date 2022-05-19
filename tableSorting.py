@@ -2,6 +2,8 @@
 # Built with Python 3.8
 # Author: Nicholas Navarro
 # First Revision: 16.5.22
+import os
+
 import pandas as pd
 from sqlalchemy import create_engine
 import numpy as np
@@ -94,3 +96,6 @@ print(finalData)
 
 # sends data to sql using sql alchemy engine, and replaces the data on database.
 finalData.to_sql('radiance', engine, if_exists='append', index=False)
+print('\nData succesfully transfered to Postgres\n')
+os.remove(fileLocation) # deletes CSV after use
+print('File Deleted.')
