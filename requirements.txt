@@ -33,3 +33,5 @@ webargs==6.1.1
 Werkzeug==2.0.3
 zipp==3.7.0
 mysql.connector==2.2.9
+plotly.express
+bokeh
