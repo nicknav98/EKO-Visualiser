@@ -5,14 +5,18 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import numpy as np
-
+import glob
 
 # handles connection to database, replace IP and table name to whatever database
 # this uses a postgres docker container that is running on the nerc-postgres raspberry pi - connected to the NERC network.
 # IP address is raspi. ip on network.
 engine = create_engine('postgresql+psycopg2://postgres:aurinko88@192.168.0.122:5432/RadianceDB')
-# file location of the CSV exported by EOX
-fileLocation = './testData/2022051315.CSV'
+# file location of the CSV exported by EOX, checks directory for csv file. Change the directory to your liking
+for file_name in glob.glob('./testData/'+'*.CSV'):
+    fileLocation = file_name
+
+
+
 # If you want to record the cleaned data to a CSV, use panda to parse to desired output CSV File
 outputFile = './output.csv'
 
