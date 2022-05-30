@@ -12,7 +12,7 @@ import glob
 # handles connection to database, replace IP and table name to whatever database
 # this uses a postgres docker container that is running on the nerc-postgres raspberry pi - connected to the NERC network.
 # IP address is raspi. ip on network.
-engine = create_engine('postgresql+psycopg2://postgres:aurinko88@192.168.0.122:5432/RadianceDB')
+engine = create_engine('postgresql+psycopg2://postgres:aurinko88@172.24.59.97:5432/RadianceDB')
 # file location of the CSV exported by EOX, checks directory for csv file. Change the directory to your liking
 for file_name in glob.glob('./testData/'+'*.CSV'):
     fileLocation = file_name
@@ -50,7 +50,7 @@ print(flatten)
 # timeStamp = pd.to_datetime(dateTimeTransposed['Date'] + ' ' + dateTimeTransposed['Time'], cache=True)
 merged = ' '.join(flatten)
 timeStampTest = pd.to_datetime(merged)
-print(merged) # checking if date time conversion was done correctly
+print(merged)# checking if date time conversion was done correctly
 
 # END ----------------
 

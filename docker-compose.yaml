@@ -24,8 +24,23 @@ services:
       - testNetwork
 
   pgAdmin:
-    image: dpage/pgadmin:latest
+    image: dpage/pgadmin4
     ports:
       - '5050:5050'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=default@linux.com
+      - PGADMIN_DEFAULT_PASSWORD=key
+      - PGADMIN_LISTEN_PORT=5050
+
+    networks:
+      - testNetwork
+  pgagent:
+    image: chiavegatto/postgres-pgagent
+    entrypoint: /bin/sh -c
+      "/tmp/wait-for-it.sh datascripts-Radiance-1:5432 --timeout=30 &&
+      PGPASSWORD='aurinko88' psql -U postgres -h datascripts-Radiance-1 -p 5432 -d RadianceDB -c 'CREATE EXTENSION IF NOT EXISTS pgagent;' &&
+      PGPASSWORD='aurinko88' pgagent -f hostaddr=datascripts-Radiance-1 dbname=postgres user=postgres port=5432"
+    environment:
+      - TIMEZONE=Etc/UTC
     networks:
       - testNetwork
