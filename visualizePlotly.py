@@ -10,10 +10,11 @@ PORT = "5432"
 import psycopg2
 import pandas as pd
 import plotly.express as px
+import secrets
 
 try:
-    connection = psycopg2.connect(user="postgres",
-                                  password="aurinko88",
+    connection = psycopg2.connect(user=secrets.docker_user,
+                                  password=secrets.docker_password,
                                   host=HOST,
                                   port=PORT,
                                   database="RadianceDB")

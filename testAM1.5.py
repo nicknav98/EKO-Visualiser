@@ -6,8 +6,9 @@
 import os
 import pandas as pd
 from sqlalchemy import create_engine
+import secrets
 
-engine = create_engine('postgresql+psycopg2://postgres:aurinko88@172.24.59.97:5432/RadianceDB')
+engine = create_engine('postgresql+psycopg2://'+secrets.docker_user+':'+secrets.docker_password+'@172.24.59.97:5432/RadianceDB')
 
 fileLocation = './testData/Backup/Backup.part2/standardSpec.CSV' #Change this to location of editied CSV file
 
