@@ -1,3 +1,4 @@
 #Ignore datafiles
 testData/
 output.csv
+secrets.py
