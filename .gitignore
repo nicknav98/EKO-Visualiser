@@ -2,3 +2,4 @@
 testData/
 output.csv
 secrets.py
+.env
