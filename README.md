@@ -26,7 +26,7 @@ HOW TO DELETE OLD ROWS - based on current date.
 
 ## Expected Output, Graphs and Console Logs
 
-[![Graph Output](https://ibb.co/2sqcxM6)]
+[![Graph Output](https://i.postimg.cc/05MfQ8Nr/Eko-Visualizer.png)]
 
 -- VisualizePlotly Output
 
