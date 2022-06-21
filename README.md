@@ -30,6 +30,6 @@ HOW TO DELETE OLD ROWS - based on current date.
 
 -- VisualizePlotly Output
 
-[![am1-5-Script-Output.png](https://i.postimg.cc/vB80YKTh/am1-5-Script-Output.png)](https://postimg.cc/2qJQT24L)
+[![am1-5-Script-Output.png](https://i.postimg.cc/vB80YKTh/am1-5-Script-Output.png)]
 
 -- AM1.5 Script Output
