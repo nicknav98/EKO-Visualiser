@@ -3,3 +3,10 @@ testData/
 output.csv
 secrets.py
 .env
+
+#ignore jupiter notebook files
+Resolutiondownsize.ipynb
+am1.5Interpolation.ipynb
+
+
+
