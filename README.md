@@ -26,10 +26,10 @@ HOW TO DELETE OLD ROWS - based on current date.
 
 ## Expected Output, Graphs and Console Logs
 
-[![Graph Output](https://i.postimg.cc/05MfQ8Nr/Eko-Visualizer.png)]
+[![visualize-Plotly-Example.png](https://i.postimg.cc/pV4YT9nF/visualize-Plotly-Example.png)](https://postimg.cc/SjLz1xdS)
 
 -- VisualizePlotly Output
 
-[![am1-5-Script-Output.png](https://i.postimg.cc/vB80YKTh/am1-5-Script-Output.png)]
+[![am1-5-Script-Output.png](https://i.postimg.cc/vB80YKTh/am1-5-Script-Output.png)](https://postimg.cc/2qJQT24L)
 
 -- AM1.5 Script Output
